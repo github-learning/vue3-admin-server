@@ -1,0 +1,10 @@
+### 查询列表
+GET http://localhost:3000/user/list
+
+### 根据id 查询列表
+GET http://localhost:3000/user/getUserById?id=2
+### 新增数据
+POST http://localhost:3000/user/addUser?id=13name="addName"
+
+### requesr
+GET http://localhost:3000/user/findAll
