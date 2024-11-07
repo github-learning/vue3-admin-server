@@ -4,31 +4,33 @@ import {
   PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
-} from 'typeorm';
+} from "typeorm";
 
 // 表名
-@Entity({ name: 'users' })
+@Entity({ name: "users" })
 export class User {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ length: 30, nullable: true, comment: 'user name' })
+  @Column({ length: 30, nullable: true, comment: "user name" })
   name: string;
+  @Column({ length: 30, nullable: true, comment: "username" })
+  username: string;
 
-  @Column({ nullable: true, comment: 'user age' })
+  @Column({ nullable: true, comment: "user age" })
   age: number;
 
   @CreateDateColumn({
-    name: 'created_at',
-    type: 'datetime',
-    comment: 'created time',
+    name: "created_at",
+    type: "datetime",
+    comment: "created time",
   })
   createdAt: Date;
 
   @UpdateDateColumn({
-    name: 'updated_at',
-    type: 'datetime',
-    comment: 'updated time',
+    name: "updated_at",
+    type: "datetime",
+    comment: "updated time",
   })
   updatedAt: Date;
 }

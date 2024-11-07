@@ -7,33 +7,41 @@ import {
   Request,
   Response,
   HttpCode,
-} from '@nestjs/common';
-import { UserService } from './user.service';
+  Param,
+} from "@nestjs/common";
+import { UserService } from "./user.service";
 
-import { User } from './user.entity';
-@Controller('user')
+import { User } from "./user.entity";
+@Controller("user")
 export class UserController {
   constructor(private userService: UserService) {}
 
-  @Get('/list')
+  @Get(":id")
+  findOne(@Param("id") id: string): string {
+    // 处理路由参数
+    console.log(id);
+    return "Handle GET request";
+  }
+
+  @Get("/list")
   async getList(): Promise<User[]> {
     return await this.userService.getList();
   }
   // 根据id 查询列表
-  @Get('/getUserById')
-  getUserById(@Query('id') id: number): Promise<User> {
+  @Get("/getUserById")
+  getUserById(@Query("id") id: number): Promise<User> {
     return this.userService.getUserById(id);
   }
   // 添加用户
-  @Post('/addUser')
+  @Post("/addUser")
   addUser(@Body() body): Promise<User> {
     return this.userService.addUser(body);
   }
 
-  @Get('/findAll')
+  @Get("/findAll")
   findAll(@Request() req): string {
     // 输出req的header
-    console.log('req.query.name', req.query);
+    console.log("req.query.name", req.query);
 
     console.log(req.headers);
     // 输出req的body
@@ -55,14 +63,14 @@ export class UserController {
     // 输出req的ips
     console.log(req.ips);
 
-    return '大家好2332';
+    return "大家好2332";
   }
-  @Get('/findAllResponse')
+  @Get("/findAllResponse")
   // 通过注解的方式设置状态
   @HttpCode(202)
   findAllResponse(@Response() res): any {
     // 输出req的header
-    res.status(201).send('大家好2332');
+    res.status(201).send("大家好2332");
     // 头部信息/cookie/ session
   }
 
@@ -72,7 +80,7 @@ export class UserController {
   //   return this.userService.deleteUser(body);
   // }
 
-  @Post('/deleteUser')
+  @Post("/deleteUser")
   async deleteUser(@Body() ids: number[]): Promise<object> {
     return this.userService.deleteUser(ids);
   }

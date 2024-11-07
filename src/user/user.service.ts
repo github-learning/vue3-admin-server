@@ -1,7 +1,7 @@
-import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
-import { User } from './user.entity';
+import { Injectable } from "@nestjs/common";
+import { InjectRepository } from "@nestjs/typeorm";
+import { Repository } from "typeorm";
+import { User } from "./user.entity";
 /**
  * @typeorm 用于建立连接
  * typeorm 用于CRUD
@@ -10,7 +10,7 @@ import { User } from './user.entity';
 @Injectable()
 export class UserService {
   constructor(
-    @InjectRepository(User) private readonly usersRepository: Repository<User>,
+    @InjectRepository(User) private readonly usersRepository: Repository<User>
   ) {}
 
   async getList(): Promise<User[]> {
@@ -49,12 +49,19 @@ export class UserService {
     if (res.affected > 0) {
       return {
         code: 200,
-        message: '删除成功',
+        message: "删除成功",
       };
     } else
       return {
         code: 400,
-        message: '删除失败',
+        message: "删除失败",
       };
+  }
+  async finedByUsername(username: string): Promise<User> {
+    return await this.usersRepository.findOne({
+      where: {
+        username,
+      },
+    });
   }
 }
