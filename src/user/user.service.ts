@@ -1,7 +1,8 @@
-import { Injectable } from "@nestjs/common";
-import { InjectRepository } from "@nestjs/typeorm";
-import { Repository } from "typeorm";
-import { User } from "./user.entity";
+import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { User } from './user.entity';
+import * as crypto from 'crypto';
 /**
  * @typeorm 用于建立连接
  * typeorm 用于CRUD
@@ -49,19 +50,34 @@ export class UserService {
     if (res.affected > 0) {
       return {
         code: 200,
-        message: "删除成功",
+        message: '删除成功',
       };
     } else
       return {
         code: 400,
-        message: "删除失败",
+        message: '删除失败',
       };
   }
-  async finedByUsername(username: string): Promise<User> {
+  async finedByUsername(name: string): Promise<User> {
     return await this.usersRepository.findOne({
       where: {
-        username,
+        name,
       },
     });
+  }
+  async createUser(username: string, password: string): Promise<User> {
+    const hashedPassword = crypto
+      .createHash('md5')
+      .update(password)
+      .digest('hex');
+    const user = this.usersRepository.create({
+      username,
+      password: hashedPassword,
+    });
+    return this.usersRepository.save(user);
+  }
+
+  async findUserByUsername(username: string): Promise<User | undefined> {
+    return this.usersRepository.findOne({ where: { username } });
   }
 }
