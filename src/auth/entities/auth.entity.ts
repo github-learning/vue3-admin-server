@@ -21,6 +21,4 @@ export class User {
 
   @Column()
   password: string;
-  @Column()
-  password222: string;
 }

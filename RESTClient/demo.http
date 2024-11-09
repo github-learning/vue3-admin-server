@@ -1,5 +1,5 @@
 ### 查询列表
-GET http://localhost:3000/user/list
+GET http://localhost:3000/dev-api/user/list
 
 ### 根据id 查询列表
 GET http://localhost:3000/user/getUserById?id=2
@@ -20,7 +20,7 @@ Content-Type: application/json
 }
 
 ### 登录接口
-POST http://localhost:3000/auth/login
+POST http://localhost:3000/dev-api/auth/login
 Content-Type: application/json
 
 {

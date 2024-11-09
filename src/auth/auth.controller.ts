@@ -7,11 +7,13 @@ import {
   Param,
   Delete,
   BadRequestException,
+  HttpCode,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { Public } from './public.decorator';
 import { success, fail } from 'src/utils';
 import { UserService } from 'src/user/user.service';
+import { response } from 'express';
 
 @Controller('auth')
 export class AuthController {
@@ -51,6 +53,7 @@ export class AuthController {
   }
   // @Public()
   @Post('/login')
+  @HttpCode(200)
   async login(@Body() params) {
     console.log('login');
     try {
@@ -58,9 +61,9 @@ export class AuthController {
         params.username,
         params.password
       );
-      success(data, '登陆成功');
+      return success(data, '登陆成功');
     } catch (err) {
-      fail('登陆失败');
+      return fail('登陆失败');
     }
   }
 }

@@ -32,17 +32,10 @@ export class AuthService {
 
     if (user.password !== md5Password) {
       throw new UnauthorizedException('用户名或密码错误');
-    } else {
-      // console.log('user', user);
     }
 
     const playLoad = { username: user.username, sub: user.id };
 
-    console.log(
-      '%c [ token ]-41',
-      'font-size:13px; background:pink; color:#bf2c9f;',
-      await this.JwtService.signAsync(playLoad)
-    );
     return {
       token: await this.JwtService.signAsync(playLoad),
     };
