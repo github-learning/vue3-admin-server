@@ -1,8 +1,9 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from './user.entity';
 import * as crypto from 'crypto';
+import * as md5 from 'md5';
 /**
  * @typeorm 用于建立连接
  * typeorm 用于CRUD
@@ -58,18 +59,9 @@ export class UserService {
         message: '删除失败',
       };
   }
-  async finedByUsername(name: string): Promise<User> {
-    return await this.usersRepository.findOne({
-      where: {
-        name,
-      },
-    });
-  }
+
   async createUser(username: string, password: string): Promise<User> {
-    const hashedPassword = crypto
-      .createHash('md5')
-      .update(password)
-      .digest('hex');
+    const hashedPassword = md5(password).toUpperCase();
     const user = this.usersRepository.create({
       username,
       password: hashedPassword,
@@ -77,7 +69,11 @@ export class UserService {
     return this.usersRepository.save(user);
   }
 
-  async findUserByUsername(username: string): Promise<User | undefined> {
-    return this.usersRepository.findOne({ where: { username } });
+  async finedByUsername(username: string): Promise<User | undefined> {
+    try {
+      return await this.usersRepository.findOne({ where: { username } });
+    } catch (error) {
+      throw new InternalServerErrorException(error);
+    }
   }
 }

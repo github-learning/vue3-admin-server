@@ -15,6 +15,11 @@ export class User {
   @Column({ length: 30, nullable: true, comment: 'user name' })
   name: string;
 
+  @Column()
+  password: string;
+  @Column()
+  username: string;
+
   @Column({ nullable: true, comment: 'user age' })
   age: number;
 

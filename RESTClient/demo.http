@@ -8,3 +8,22 @@ POST http://localhost:3000/user/addUser?id=13name="addName"
 
 ### requesr
 GET http://localhost:3000/user/findAll
+
+
+### 注册接口
+POST http://localhost:3000/auth/register
+Content-Type: application/json
+
+{
+  "username": "test",
+  "password": "123456"
+}
+
+### 登录接口
+POST http://localhost:3000/auth/login
+Content-Type: application/json
+
+{
+  "username": "test",
+  "password": "123456"
+}

@@ -12,11 +12,11 @@ import {
 import { UserService } from './user.service';
 
 import { User } from './user.entity';
-import { Public } from 'src/auth/public.decorator';
+// import { Public } from 'src/auth/public.decorator';
 @Controller('user')
 export class UserController {
   constructor(private userService: UserService) {}
-  @Public()
+  // @Public()
   @Get('/list')
   async getList(): Promise<User[]> {
     return await this.userService.getList();
@@ -77,17 +77,5 @@ export class UserController {
   @Post('/deleteUser')
   async deleteUser(@Body() ids: number[]): Promise<object> {
     return this.userService.deleteUser(ids);
-  }
-  @Post('register')
-  async register(@Body() body: { username: string; password: string }) {
-    const { username, password } = body;
-
-    const existingUser = await this.userService.findUserByUsername(username);
-    if (existingUser) {
-      throw new BadRequestException('Username already exists');
-    }
-
-    const user = await this.userService.createUser(username, password);
-    return { id: user.id, username: user.username };
   }
 }

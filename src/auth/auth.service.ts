@@ -3,13 +3,14 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { UserService } from 'src/user/user.service';
 import { Repository } from 'typeorm';
 import * as md5 from 'md5';
+import * as crypto from 'crypto';
 import { JwtService } from '@nestjs/jwt';
+import { User } from 'src/user/user.entity';
 
 @Injectable()
 export class AuthService {
   constructor(
     private userService: UserService,
-
     private JwtService: JwtService
   ) {}
   findAll() {
@@ -26,15 +27,24 @@ export class AuthService {
 
   async login(username: string, password: string) {
     const user = await this.userService.finedByUsername(username);
-    console.log('user', user);
     const md5Password = md5(password).toUpperCase();
-    console.log('user', user, md5Password);
-    if (password !== md5Password) {
+    // console.log('user', user);
+
+    if (user.password !== md5Password) {
       throw new UnauthorizedException('用户名或密码错误');
+    } else {
+      // console.log('user', user);
     }
-    const playload = { username: user.username, sub: user.id };
+
+    const playLoad = { username: user.username, sub: user.id };
+
+    console.log(
+      '%c [ token ]-41',
+      'font-size:13px; background:pink; color:#bf2c9f;',
+      await this.JwtService.signAsync(playLoad)
+    );
     return {
-      token: this.JwtService.signAsync(playload),
+      token: await this.JwtService.signAsync(playLoad),
     };
   }
 }

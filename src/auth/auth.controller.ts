@@ -6,14 +6,19 @@ import {
   Patch,
   Param,
   Delete,
-} from "@nestjs/common";
-import { AuthService } from "./auth.service";
-import { Public } from "./public.decorator";
-import { success, fail } from "src/utils";
+  BadRequestException,
+} from '@nestjs/common';
+import { AuthService } from './auth.service';
+import { Public } from './public.decorator';
+import { success, fail } from 'src/utils';
+import { UserService } from 'src/user/user.service';
 
-@Controller("auth")
+@Controller('auth')
 export class AuthController {
-  constructor(private readonly authService: AuthService) {}
+  constructor(
+    private readonly authService: AuthService,
+    private userService: UserService
+  ) {}
 
   @Public()
   @Get()
@@ -21,25 +26,41 @@ export class AuthController {
     return this.authService.findAll();
   }
 
+  @Post('/register')
+  async register(@Body() body: { username: string; password: string }) {
+    const { username, password } = body;
+
+    const existingUser = await this.userService.finedByUsername(username);
+
+    if (existingUser) {
+      throw new BadRequestException('Username already exists');
+    }
+
+    const user = await this.userService.createUser(username, password);
+    return { id: user.id, username: user.username };
+  }
+
   // @Get(":id")
   // findOne(@Param("id") id: string) {
   //   return this.authService.findOne(+id);
   // }
 
-  @Delete(":id")
-  remove(@Param("id") id: string) {
+  @Delete(':id')
+  remove(@Param('id') id: string) {
     return this.authService.remove(+id);
   }
-  @Public()
-  @Post("login")
-  login(@Body() params) {
-    return this.authService
-      .login(params.username, params.password)
-      .then((data) => {
-        success(data, "登陆成功");
-      })
-      .catch((err) => {
-        fail("登陆失败");
-      });
+  // @Public()
+  @Post('/login')
+  async login(@Body() params) {
+    console.log('login');
+    try {
+      const data = await this.authService.login(
+        params.username,
+        params.password
+      );
+      success(data, '登陆成功');
+    } catch (err) {
+      fail('登陆失败');
+    }
   }
 }

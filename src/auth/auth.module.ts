@@ -12,16 +12,16 @@ import { JwtModule } from '@nestjs/jwt';
     UserModule,
     JwtModule.register({
       global: true,
-      secret: process.env.JWT_SECRET,
+      secret: 'your_secret_key22',
       signOptions: { expiresIn: 24 * 60 * 60 + 's' }, // 24小时
     }),
   ],
   providers: [
     AuthService,
-    {
-      provide: APP_GUARD,
-      useClass: AuthGuard, // 全局守卫
-    },
+    // {
+    //   provide: APP_GUARD,
+    //   useClass: AuthGuard, // 全局守卫
+    // },
   ],
 })
 export class AuthModule {}
