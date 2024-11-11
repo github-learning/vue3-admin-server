@@ -51,7 +51,7 @@ export class AuthController {
   remove(@Param('id') id: string) {
     return this.authService.remove(+id);
   }
-  // @Public()
+  @Public()
   @Post('/login')
   @HttpCode(200)
   async login(@Body() params) {

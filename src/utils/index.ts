@@ -12,3 +12,7 @@ export const fail = (message: string = '操作失败') => {
     message,
   };
 };
+
+export function wrapperResponse(p, msg) {
+  return p.then((data) => success(data, msg)).catch((err) => fail(err));
+}

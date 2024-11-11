@@ -8,14 +8,33 @@ import {
   Response,
   HttpCode,
   BadRequestException,
+  Req,
 } from '@nestjs/common';
 import { UserService } from './user.service';
 
 import { User } from './user.entity';
+import { Public } from 'src/auth/public.decorator';
+import { wrapperResponse } from 'src/utils';
 // import { Public } from 'src/auth/public.decorator';
 @Controller('user')
 export class UserController {
   constructor(private userService: UserService) {}
+  // @Public()
+  @Get('/info')
+  async getUserBuyToken(@Req() request) {
+    console.log('request.user', request.user);
+    // return wrapperResponse(
+    // return await this.userService.finedByUsername(request.user.username);
+    return wrapperResponse(
+      this.userService.finedByUsername(request.user.username),
+      '登录成功'
+    );
+    // ('获取用户信息成功');
+    // );
+    // console.log('data', data);
+    // return data;
+    // return ' user info';
+  }
   // @Public()
   @Get('/list')
   async getList(): Promise<User[]> {
