@@ -33,8 +33,39 @@ Content-Type: application/json
 GET http://localhost:3000/user/info
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3QiLCJzdWIiOjIzLCJpYXQiOjE3MzEyNDU5NzYsImV4cCI6MTc2MjM0OTk3Nn0.pnJx_lNs-jU-xgfztQ_5tD-2sfgNNo-ibQBykfiVzpw
 Content-Type: application/json
-
+# 角色表
 ### 获取角色列表，并设置token
 GET http://localhost:3000/role
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3QiLCJzdWIiOjIzLCJpYXQiOjE3MzEyNDU5NzYsImV4cCI6MTc2MjM0OTk3Nn0.pnJx_lNs-jU-xgfztQ_5tD-2sfgNNo-ibQBykfiVzpw
 Content-Type: application/json
+
+
+
+### 新增角色列表，并设置token
+POST http://localhost:3000/role
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3QiLCJzdWIiOjIzLCJpYXQiOjE3MzEyNDU5NzYsImV4cCI6MTc2MjM0OTk3Nn0.pnJx_lNs-jU-xgfztQ_5tD-2sfgNNo-ibQBykfiVzpw
+Content-Type: application/json
+
+{
+  "id": 12,
+  "name": "123456",
+  "description": "wwwqw",
+  "is_default": 0
+}
+
+### 编辑角色列表，并设置token
+Patch http://localhost:3000/role/2
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3QiLCJzdWIiOjIzLCJpYXQiOjE3MzEyNDU5NzYsImV4cCI6MTc2MjM0OTk3Nn0.pnJx_lNs-jU-xgfztQ_5tD-2sfgNNo-ibQBykfiVzpw
+Content-Type: application/json
+
+{
+  "description": "admin"
+}
+
+### 删除角色列表，并设置token
+Delete http://localhost:3000/role/2222
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3QiLCJzdWIiOjIzLCJpYXQiOjE3MzEyNDU5NzYsImV4cCI6MTc2MjM0OTk3Nn0.pnJx_lNs-jU-xgfztQ_5tD-2sfgNNo-ibQBykfiVzpw
+Content-Type: application/json
+
+
+

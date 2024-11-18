@@ -10,13 +10,12 @@ export class RoleService {
   constructor(
     @InjectRepository(Role) private readonly roleRepository: Repository<Role>
   ) {}
-  create(createRoleDto: CreateRoleDto) {
-    return 'This action adds a new role';
+
+  async create(createRoleDto: CreateRoleDto) {
+    const role = this.roleRepository.create(createRoleDto);
+    return this.roleRepository.save(role);
   }
 
-  // async findAll() {
-  //   return await this.rolesRepository.find();
-  // }
   async findAll(page: number = 1, limit: number = 10) {
     const [roles, total] = await this.roleRepository.findAndCount({
       skip: (page - 1) * limit,
@@ -24,26 +23,26 @@ export class RoleService {
     });
 
     return {
-      data: roles,
-      total,
-      page,
+      data: {
+        roles,
+        total,
+        page,
+        pageCount: Math.ceil(total / limit),
+      },
+
       code: 200,
-      pageCount: Math.ceil(total / limit),
     };
   }
-  // async getList(): Promise<User[]> {
-  //   return await this.usersRepository.find();
-  // }
 
+  async update(id: number, updateRoleDto: UpdateRoleDto) {
+    await this.roleRepository.update(id, updateRoleDto);
+    return this.roleRepository.findOne({ where: { id } });
+  }
   findOne(id: number) {
     return `This action returns a #${id} role`;
   }
 
-  update(id: number, updateRoleDto: UpdateRoleDto) {
-    return `This action updates a #${id} role`;
-  }
-
   remove(id: number) {
-    return `This action removes a #${id} role`;
+    return this.roleRepository.delete(id);
   }
 }

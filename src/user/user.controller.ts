@@ -23,6 +23,7 @@ export class UserController {
   @Get('/info')
   async getUserBuyToken(@Req() request) {
     console.log('request.user', request.user);
+
     // return wrapperResponse(
     // return await this.userService.finedByUsername(request.user.username);
     return wrapperResponse(

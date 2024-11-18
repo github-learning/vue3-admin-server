@@ -10,24 +10,22 @@ import {
 import { RoleService } from './role.service';
 import { CreateRoleDto } from './dto/create-role.dto';
 import { UpdateRoleDto } from './dto/update-role.dto';
+import { Role } from './entities/role.entity';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 
 @Controller('role')
 export class RoleController {
   constructor(private readonly roleService: RoleService) {}
-
-  @Post()
-  create(@Body() createRoleDto: CreateRoleDto) {
-    return this.roleService.create(createRoleDto);
-  }
 
   @Get()
   findAll() {
     return this.roleService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.roleService.findOne(+id);
+  @Post()
+  create(@Body() createRoleDto: CreateRoleDto) {
+    return this.roleService.create(createRoleDto);
   }
 
   @Patch(':id')
@@ -38,5 +36,10 @@ export class RoleController {
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.roleService.remove(+id);
+  }
+
+  @Get(':id')
+  findOne(@Param('id') id: string) {
+    return this.roleService.findOne(+id);
   }
 }
