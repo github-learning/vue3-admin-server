@@ -38,11 +38,12 @@ export class RoleService {
     await this.roleRepository.update(id, updateRoleDto);
     return this.roleRepository.findOne({ where: { id } });
   }
-  findOne(id: number) {
-    return `This action returns a #${id} role`;
-  }
 
   remove(id: number) {
     return this.roleRepository.delete(id);
+  }
+
+  async findOne(id: number) {
+    return await this.roleRepository.findOne({ where: { id } });
   }
 }
