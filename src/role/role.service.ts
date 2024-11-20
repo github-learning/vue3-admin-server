@@ -13,7 +13,12 @@ export class RoleService {
 
   async create(createRoleDto: CreateRoleDto) {
     const role = this.roleRepository.create(createRoleDto);
-    return this.roleRepository.save(role);
+    const data = await this.roleRepository.save(role);
+
+    return {
+      data,
+      code: 200,
+    };
   }
 
   async findAll(page: number = 1, limit: number = 10) {
@@ -35,12 +40,26 @@ export class RoleService {
   }
 
   async update(id: number, updateRoleDto: UpdateRoleDto) {
+    console.log('updateRoleDto', updateRoleDto);
     await this.roleRepository.update(id, updateRoleDto);
-    return this.roleRepository.findOne({ where: { id } });
+    return {
+      data: {},
+      code: 200,
+    };
   }
 
   remove(id: number) {
-    return this.roleRepository.delete(id);
+    const result = this.roleRepository.delete(id);
+    console.log('result', result);
+    // if (result.affected === 0) {
+    //   throw new NotFoundException(`Role with ID ${id} not found`);
+    // } else {
+    return {
+      code: 200,
+      data: {
+        // msg: '删除成功',
+      },
+    };
   }
 
   async findOne(id: number) {

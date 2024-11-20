@@ -7,6 +7,7 @@ import {
   Param,
   Delete,
   NotFoundException,
+  Put,
 } from '@nestjs/common';
 import { RoleService } from './role.service';
 import { CreateRoleDto } from './dto/create-role.dto';
@@ -22,6 +23,7 @@ export class RoleController {
   @Get()
   findAll() {
     return this.roleService.findAll();
+    // return this.roleService.findAll();
   }
 
   @Post()
@@ -29,17 +31,14 @@ export class RoleController {
     return this.roleService.create(createRoleDto);
   }
 
-  @Patch(':id')
+  @Put(':id')
   update(@Param('id') id: string, @Body() updateRoleDto: UpdateRoleDto) {
     return this.roleService.update(+id, updateRoleDto);
   }
 
   @Delete(':id')
-  async remove(@Param('id') id: string): Promise<void> {
-    const result = await this.roleService.remove(+id);
-    if (result.affected === 0) {
-      throw new NotFoundException(`Role with ID ${id} not found`);
-    }
+  async remove(@Param('id') id: string) {
+    return this.roleService.remove(+id);
   }
 
   @Get(':id')

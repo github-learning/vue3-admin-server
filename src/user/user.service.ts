@@ -1,7 +1,7 @@
 import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { User } from './user.entity';
+import { User } from './entities/user.entity';
 import * as crypto from 'crypto';
 import * as md5 from 'md5';
 /**
@@ -14,6 +14,24 @@ export class UserService {
   constructor(
     @InjectRepository(User) private readonly usersRepository: Repository<User>
   ) {}
+
+  async findAll(page: number = 1, limit: number = 10) {
+    const [users, total] = await this.usersRepository.findAndCount({
+      skip: (page - 1) * limit,
+      take: limit,
+    });
+
+    return {
+      data: {
+        users,
+        total,
+        page,
+        pageCount: Math.ceil(total / limit),
+      },
+
+      code: 200,
+    };
+  }
 
   async getList(): Promise<User[]> {
     return await this.usersRepository.find();

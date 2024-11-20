@@ -1,39 +1,39 @@
-import {
-  Entity,
-  Column,
-  PrimaryGeneratedColumn,
-  CreateDateColumn,
-  UpdateDateColumn,
-} from 'typeorm';
+// import {
+//   Entity,
+//   Column,
+//   PrimaryGeneratedColumn,
+//   CreateDateColumn,
+//   UpdateDateColumn,
+// } from 'typeorm';
 
-// 表名
-@Entity({ name: 'users' })
-export class User {
-  @PrimaryGeneratedColumn()
-  id: number;
+// // 表名
+// @Entity({ name: 'users' })
+// export class User {
+//   @PrimaryGeneratedColumn()
+//   id: number;
 
-  @Column({ length: 30, nullable: true, comment: 'user name' })
-  name: string;
+//   @Column({ length: 30, nullable: true, comment: 'user name' })
+//   name: string;
 
-  @Column()
-  password: string;
-  @Column()
-  username: string;
+//   @Column()
+//   password: string;
+//   @Column()
+//   username: string;
 
-  @Column({ nullable: true, comment: 'user age' })
-  age: number;
+//   @Column({ nullable: true, comment: 'user age' })
+//   age: number;
 
-  @CreateDateColumn({
-    name: 'created_at',
-    type: 'datetime',
-    comment: 'created time',
-  })
-  createdAt: Date;
+//   @CreateDateColumn({
+//     name: 'created_at',
+//     type: 'datetime',
+//     comment: 'created time',
+//   })
+//   createdAt: Date;
 
-  @UpdateDateColumn({
-    name: 'updated_at',
-    type: 'datetime',
-    comment: 'updated time',
-  })
-  updatedAt: Date;
-}
+//   @UpdateDateColumn({
+//     name: 'updated_at',
+//     type: 'datetime',
+//     comment: 'updated time',
+//   })
+//   updatedAt: Date;
+// }

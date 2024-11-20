@@ -12,13 +12,14 @@ import {
 } from '@nestjs/common';
 import { UserService } from './user.service';
 
-import { User } from './user.entity';
+import { User } from './entities/user.entity';
 import { Public } from 'src/auth/public.decorator';
 import { wrapperResponse } from 'src/utils';
 // import { Public } from 'src/auth/public.decorator';
 @Controller('user')
 export class UserController {
-  constructor(private userService: UserService) {}
+  constructor(private readonly userService: UserService) {}
+
   // @Public()
   @Get('/info')
   async getUserBuyToken(@Req() request) {
@@ -36,6 +37,10 @@ export class UserController {
     // return data;
     // return ' user info';
   }
+  @Get()
+  findAll() {
+    return this.userService.findAll();
+  }
   // @Public()
   @Get('/list')
   async getList(): Promise<User[]> {
@@ -52,33 +57,33 @@ export class UserController {
     return this.userService.addUser(body);
   }
 
-  @Get('/findAll')
-  findAll(@Request() req): string {
-    // 输出req的header
-    console.log('req.query.name', req.query);
+  // @Get('/findAll')
+  // findAll(@Request() req): string {
+  //   // 输出req的header
+  //   console.log('req.query.name', req.query);
 
-    console.log(req.headers);
-    // 输出req的body
-    console.log(req.body);
-    // 输出req的query
-    console.log(req.query);
-    // 输出req的params
-    console.log(req.params);
-    // 输出req的url
-    console.log(req.url);
-    // 输出req的method
-    console.log(req.method);
-    // 输出req的protocol
-    console.log(req.protocol);
-    // 输出req的host
-    console.log(req.hostname);
-    // 输出req的ip
-    console.log(req.ip);
-    // 输出req的ips
-    console.log(req.ips);
+  //   console.log(req.headers);
+  //   // 输出req的body
+  //   console.log(req.body);
+  //   // 输出req的query
+  //   console.log(req.query);
+  //   // 输出req的params
+  //   console.log(req.params);
+  //   // 输出req的url
+  //   console.log(req.url);
+  //   // 输出req的method
+  //   console.log(req.method);
+  //   // 输出req的protocol
+  //   console.log(req.protocol);
+  //   // 输出req的host
+  //   console.log(req.hostname);
+  //   // 输出req的ip
+  //   console.log(req.ip);
+  //   // 输出req的ips
+  //   console.log(req.ips);
 
-    return '大家好2332';
-  }
+  //   return '大家好2332';
+  // }
   @Get('/findAllResponse')
   // 通过注解的方式设置状态
   @HttpCode(202)

@@ -5,7 +5,7 @@ import { Repository } from 'typeorm';
 import * as md5 from 'md5';
 import * as crypto from 'crypto';
 import { JwtService } from '@nestjs/jwt';
-import { User } from 'src/user/user.entity';
+import { User } from 'src/user/entities/user.entity';
 
 @Injectable()
 export class AuthService {

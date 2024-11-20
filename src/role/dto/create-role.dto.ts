@@ -13,5 +13,5 @@ export class CreateRoleDto {
   description: string;
 
   @IsInt()
-  is_default: number;
+  isDefault: number;
 }
