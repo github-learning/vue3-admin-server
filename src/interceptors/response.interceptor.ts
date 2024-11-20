@@ -3,9 +3,9 @@ import {
   NestInterceptor,
   ExecutionContext,
   CallHandler,
-} from "@nestjs/common";
-import { Observable } from "rxjs";
-import { map } from "rxjs/operators";
+} from '@nestjs/common';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Injectable()
 export class ResponseInterceptor implements NestInterceptor {
@@ -13,18 +13,18 @@ export class ResponseInterceptor implements NestInterceptor {
     return next.handle().pipe(
       map((data) => {
         const statusCode = context.switchToHttp().getResponse().statusCode;
-        console.log("statusCode", statusCode);
+        console.log('statusCode', statusCode);
 
-        let message = "Success";
-        if (statusCode === 404) {
-          message = "Resource not found";
-        } else if (statusCode === 500) {
-          message = "Internal server error";
-        }
+        // let message = "Success";
+        // if (statusCode === 404) {
+        //   message = "Resource not found";
+        // } else if (statusCode === 500) {
+        //   message = "Internal server error";
+        // }
 
         return {
           status: statusCode,
-          message: message,
+          // message: message,
           data,
         };
       })

@@ -1,33 +1,33 @@
-import { NestFactory } from "@nestjs/core";
-import { AppModule } from "./app.module";
-import { SwaggerModule, DocumentBuilder } from "@nestjs/swagger";
-import { ResponseInterceptor } from "./interceptors/response.interceptor";
-import { APP_INTERCEPTOR } from "@nestjs/core";
-import { HttpExceptionFilter } from "./filters/http-exception.filter";
+import { NestFactory } from '@nestjs/core';
+import { AppModule } from './app.module';
+import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
+import { ResponseInterceptor } from './interceptors/response.interceptor';
+import { APP_INTERCEPTOR } from '@nestjs/core';
+import { HttpExceptionFilter } from './filters/http-exception.filter';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, { cors: true });
   // 设置全局路由前缀
   // app.setGlobalPrefix('/api');
   // 设置swapper 相关文档
   // Swagger 配置, 其实swagger 对代码的侵入性还是比较大的，需要在controller 里 做处理
-  // const config = new DocumentBuilder()
-  //   .setTitle("My API")
-  //   .setDescription("The API description")
-  //   .setVersion("1.0")
-  //   .addBearerAuth()
-  //   .addTag("cats")
-  //   .build();
+  const config = new DocumentBuilder()
+    .setTitle('My API')
+    .setDescription('The API description')
+    .setVersion('1.0')
+    .addBearerAuth()
+    .addTag('cats')
+    .build();
 
-  // const document = SwaggerModule.createDocument(app, config);
-  // SwaggerModule.setup("doc", app, document); // 'api' 是 Swagger UI 的路由路径
+  const document = SwaggerModule.createDocument(app, config);
+  SwaggerModule.setup('doc', app, document); // 'api' 是 Swagger UI 的路由路径
   // 全局注册响应拦截器
-  app.useGlobalInterceptors(new ResponseInterceptor());
+  // app.useGlobalInterceptors(new ResponseInterceptor());
   // 全局注册异常过滤器
-  app.useGlobalFilters(new HttpExceptionFilter());
+  // app.useGlobalFilters(new HttpExceptionFilter());
 
   await app.listen(3000);
 
-  console.log("http://localhost:3000/");
+  console.log('http://localhost:3000/');
   // await app.listen(3000);
 }
 bootstrap();

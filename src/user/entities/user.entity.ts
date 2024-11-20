@@ -14,7 +14,7 @@ export class User {
   @Column({ type: 'varchar', length: 255, comment: '用户名' })
   username: string;
 
-  @Column({ type: 'varchar', length: 255, comment: '密码' })
+  @Column({ type: 'varchar', length: 255, nullable: true, comment: '密码' })
   password: string;
 
   @Column({ type: 'varchar', length: 255, nullable: true, comment: '用户邮箱' })
@@ -40,4 +40,7 @@ export class User {
 
   @UpdateDateColumn({ type: 'datetime', comment: '更新时间' })
   updatedAt: Date;
+
+  @Column({ type: 'simple-array', nullable: true, comment: '角色ID数组' })
+  roleIds: number[]; // 直接存储角色 ID 的数组
 }

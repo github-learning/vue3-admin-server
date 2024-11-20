@@ -9,6 +9,9 @@ import {
   HttpCode,
   BadRequestException,
   Req,
+  Delete,
+  Param,
+  Put,
 } from '@nestjs/common';
 import { UserService } from './user.service';
 
@@ -19,8 +22,21 @@ import { wrapperResponse } from 'src/utils';
 @Controller('user')
 export class UserController {
   constructor(private readonly userService: UserService) {}
-
-  // @Public()
+  /**
+   * 新增
+   * @param body
+   * @returns
+   */
+  @Post()
+  create(@Body() body) {
+    console.log('body', body);
+    return this.userService.create(body);
+  }
+  /**
+   * 获取用户信息
+   * @param request
+   * @returns
+   */
   @Get('/info')
   async getUserBuyToken(@Req() request) {
     console.log('request.user', request.user);
@@ -31,15 +47,47 @@ export class UserController {
       this.userService.finedByUsername(request.user.username),
       '登录成功'
     );
-    // ('获取用户信息成功');
-    // );
-    // console.log('data', data);
-    // return data;
-    // return ' user info';
   }
+
+  /**
+   * 删除用户
+   * @param body
+   * @returns
+   */
+
+  @Delete(':id')
+  async remove(@Param('id') id: string) {
+    return this.userService.remove(+id);
+  }
+
+  @Put(':id')
+  update(@Param('id') id: string, @Body() updateRoleDto) {
+    return this.userService.update(+id, updateRoleDto);
+  }
+
+  // @Get()
+  // findAll() {
+  //   return this.userService.findAll();
+  // }
   @Get()
-  findAll() {
-    return this.userService.findAll();
+  findAll(
+    @Query('page') page: number, // 获取分页参数
+    @Query('limit') limit: number,
+    @Query('username') username?: string, // 可选的查询条件
+    @Query('mobile') mobile?: string,
+    @Query('status') status?: boolean
+  ) {
+    console.log('status', status);
+    // 构建过滤条件对象
+    const filters = {
+      username,
+      mobile,
+      // status,
+      // status: status !== undefined ? status === 'true' : undefined, // 转换字符串为布尔值
+    };
+
+    // 将分页和过滤条件传递到 service
+    return this.userService.findAll(page || 1, limit || 10, filters);
   }
   // @Public()
   @Get('/list')
@@ -52,55 +100,8 @@ export class UserController {
     return this.userService.getUserById(id);
   }
   // 添加用户
-  @Post('/addUser')
-  addUser(@Body() body): Promise<User> {
-    return this.userService.addUser(body);
-  }
-
-  // @Get('/findAll')
-  // findAll(@Request() req): string {
-  //   // 输出req的header
-  //   console.log('req.query.name', req.query);
-
-  //   console.log(req.headers);
-  //   // 输出req的body
-  //   console.log(req.body);
-  //   // 输出req的query
-  //   console.log(req.query);
-  //   // 输出req的params
-  //   console.log(req.params);
-  //   // 输出req的url
-  //   console.log(req.url);
-  //   // 输出req的method
-  //   console.log(req.method);
-  //   // 输出req的protocol
-  //   console.log(req.protocol);
-  //   // 输出req的host
-  //   console.log(req.hostname);
-  //   // 输出req的ip
-  //   console.log(req.ip);
-  //   // 输出req的ips
-  //   console.log(req.ips);
-
-  //   return '大家好2332';
+  // @Post('/addUser')
+  // addUser(@Body() body): Promise<User> {
+  //   return this.userService.addUser(body);
   // }
-  @Get('/findAllResponse')
-  // 通过注解的方式设置状态
-  @HttpCode(202)
-  findAllResponse(@Response() res): any {
-    // 输出req的header
-    res.status(201).send('大家好2332');
-    // 头部信息/cookie/ session
-  }
-
-  // 删除用户
-  // @Post('deleteUser')
-  // deleteUser(@Body() body): Promise<object> {
-  //   return this.userService.deleteUser(body);
-  // }
-
-  @Post('/deleteUser')
-  async deleteUser(@Body() ids: number[]): Promise<object> {
-    return this.userService.deleteUser(ids);
-  }
 }

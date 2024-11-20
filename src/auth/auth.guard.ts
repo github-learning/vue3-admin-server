@@ -21,7 +21,7 @@ export class AuthGuard implements CanActivate {
     context: ExecutionContext
   ): boolean | Promise<boolean> | Observable<boolean> {
     // throw new Error("Method not implemented.");
-    console.log('context', context);
+    // console.log('context', context);
     // 让login 进去
     const isPublic = this.reflector.getAllAndOverride(IS_PUBLIC_KEY, [
       context.getHandler(),

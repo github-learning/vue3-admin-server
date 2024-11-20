@@ -27,7 +27,7 @@ export class AuthController {
   findAll() {
     return this.authService.findAll();
   }
-
+  @Public()
   @Post('/register')
   async register(@Body() body: { username: string; password: string }) {
     const { username, password } = body;
@@ -39,6 +39,7 @@ export class AuthController {
     }
 
     const user = await this.userService.createUser(username, password);
+    console.log('user-1', user);
     return { id: user.id, username: user.username };
   }
 
