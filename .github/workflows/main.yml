@@ -33,7 +33,7 @@ jobs:
         with:
           branch: gh-pages
           publish_dir: ./dist
-          github_token: ${{ secrets.VUE_ADMIN }} # secert 名
+          github_token: ${{ secrets.VUE3_ADMIN_SERVER }} # secert 名
           user_name: ${{ secrets.MY_USER_NAME }} # 通过 Secrets 配置
           user_email: ${{ secrets.MY_USER_EMAIL }} # 通过 Secrets 配置
           commit_message: 自动部署
