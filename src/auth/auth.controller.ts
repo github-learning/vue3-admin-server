@@ -29,18 +29,19 @@ export class AuthController {
   }
   @Public()
   @Post('/register')
+  @HttpCode(200)
   async register(@Body() body: { username: string; password: string }) {
     const { username, password } = body;
 
     const existingUser = await this.userService.finedByUsername(username);
 
     if (existingUser) {
-      throw new BadRequestException('Username already exists');
+      return fail('该用户已存在')
     }
 
     const user = await this.userService.createUser(username, password);
     console.log('user-1', user);
-    return { id: user.id, username: user.username };
+    return success({ id: user.id, username: user.username },'注册成功, 请重新登陆')
   }
 
   // @Get(":id")
