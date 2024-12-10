@@ -12,14 +12,14 @@ import { RoleModule } from './role/role.module';
     TypeOrmModule.forRoot({
       type: 'mysql',
       host: 'localhost', // 127.0.0.1
-      // host: '127.0.0.1', // 127.0.0.1
       port: 3306,
       username: 'root',
       password: '123456',
-      database: 'user',
+      database: 'sys',
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
       synchronize: true,
       autoLoadEntities: true,
+      connectorPackage: 'mysql2', // 指定使用 mysql2
     }),
     AuthModule,
     UserModule,
