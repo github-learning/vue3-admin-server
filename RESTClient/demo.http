@@ -15,23 +15,22 @@ POST http://localhost:3000/auth/register
 Content-Type: application/json
 
 {
-  "username": "test-1",
+  "username": "test-12",
   "password": "123456-1"
 }
 
 ### 登录接口
 POST http://localhost:3000/auth/login
-# POST http://localhost:3000/dev-api/auth/login
 Content-Type: application/json
 
 {
-  "username": "test",
-  "password": "1234567"
+  "username": "test-12",
+  "password": "123456-1"
 }
 
 ### 获取用户信息，并设置token
 GET http://localhost:3000/user/info
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3QiLCJzdWIiOjIzLCJpYXQiOjE3MzEyNDU5NzYsImV4cCI6MTc2MjM0OTk3Nn0.pnJx_lNs-jU-xgfztQ_5tD-2sfgNNo-ibQBykfiVzpw
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3QtMTIiLCJzdWIiOjE2LCJpYXQiOjE3MzM4ODYwNjcsImV4cCI6MTc2NDk5MDA2N30.NB8T5B8NDDgCYkGKbx5cHC3U02JeRQ2UlpW6AYJgRVQ
 Content-Type: application/json
 
 # +++++++++++++++++++++++++++++++++++++
@@ -39,12 +38,12 @@ Content-Type: application/json
 # 角色表
 ### 获取角色列表，并设置token
 GET http://localhost:3000/role
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3QiLCJzdWIiOjIzLCJpYXQiOjE3MzEyNDU5NzYsImV4cCI6MTc2MjM0OTk3Nn0.pnJx_lNs-jU-xgfztQ_5tD-2sfgNNo-ibQBykfiVzpw
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3QtMTIiLCJzdWIiOjE2LCJpYXQiOjE3MzM4ODYwNjcsImV4cCI6MTc2NDk5MDA2N30.NB8T5B8NDDgCYkGKbx5cHC3U02JeRQ2UlpW6AYJgRVQ
 Content-Type: application/json
 
 ### 新增角色列表，并设置token
 POST http://localhost:3000/role
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3QiLCJzdWIiOjIzLCJpYXQiOjE3MzEyNDU5NzYsImV4cCI6MTc2MjM0OTk3Nn0.pnJx_lNs-jU-xgfztQ_5tD-2sfgNNo-ibQBykfiVzpw
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3QtMTIiLCJzdWIiOjE2LCJpYXQiOjE3MzM4ODYwNjcsImV4cCI6MTc2NDk5MDA2N30.NB8T5B8NDDgCYkGKbx5cHC3U02JeRQ2UlpW6AYJgRVQ
 Content-Type: application/json
 
 {
@@ -56,7 +55,7 @@ Content-Type: application/json
 
 ### 编辑角色列表，并设置token
 Patch http://localhost:3000/role/3
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3QiLCJzdWIiOjIzLCJpYXQiOjE3MzEyNDU5NzYsImV4cCI6MTc2MjM0OTk3Nn0.pnJx_lNs-jU-xgfztQ_5tD-2sfgNNo-ibQBykfiVzpw
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3QtMTIiLCJzdWIiOjE2LCJpYXQiOjE3MzM4ODYwNjcsImV4cCI6MTc2NDk5MDA2N30.NB8T5B8NDDgCYkGKbx5cHC3U02JeRQ2UlpW6AYJgRVQ
 Content-Type: application/json
 
 {
@@ -66,19 +65,19 @@ Content-Type: application/json
 
 ### 删除角色列表，并设置token
 Delete http://localhost:3000/role/2222
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3QiLCJzdWIiOjIzLCJpYXQiOjE3MzEyNDU5NzYsImV4cCI6MTc2MjM0OTk3Nn0.pnJx_lNs-jU-xgfztQ_5tD-2sfgNNo-ibQBykfiVzpw
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3QtMTIiLCJzdWIiOjE2LCJpYXQiOjE3MzM4ODYwNjcsImV4cCI6MTc2NDk5MDA2N30.NB8T5B8NDDgCYkGKbx5cHC3U02JeRQ2UlpW6AYJgRVQ
 Content-Type: application/json
 
 ### 查找角色列表，并设置token
 Get http://localhost:3000/role/3
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3QiLCJzdWIiOjIzLCJpYXQiOjE3MzEyNDU5NzYsImV4cCI6MTc2MjM0OTk3Nn0.pnJx_lNs-jU-xgfztQ_5tD-2sfgNNo-ibQBykfiVzpw
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3QtMTIiLCJzdWIiOjE2LCJpYXQiOjE3MzM4ODYwNjcsImV4cCI6MTc2NDk5MDA2N30.NB8T5B8NDDgCYkGKbx5cHC3U02JeRQ2UlpW6AYJgRVQ
 Content-Type: application/json
 
 # ++++++++++++++++++++++++++++++++
 # 用户表
 ### 新增用户列表，并设置token
 POST http://localhost:3000/user
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3QiLCJzdWIiOjIzLCJpYXQiOjE3MzEyNDU5NzYsImV4cCI6MTc2MjM0OTk3Nn0.pnJx_lNs-jU-xgfztQ_5tD-2sfgNNo-ibQBykfiVzpw
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3QtMTIiLCJzdWIiOjE2LCJpYXQiOjE3MzM4ODYwNjcsImV4cCI6MTc2NDk5MDA2N30.NB8T5B8NDDgCYkGKbx5cHC3U02JeRQ2UlpW6AYJgRVQ
 Content-Type: application/json
 
 {
@@ -93,7 +92,7 @@ Content-Type: application/json
 
 ### 编辑用户列表，并设置token
 Patch http://localhost:3000/user/3
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3QiLCJzdWIiOjIzLCJpYXQiOjE3MzEyNDU5NzYsImV4cCI6MTc2MjM0OTk3Nn0.pnJx_lNs-jU-xgfztQ_5tD-2sfgNNo-ibQBykfiVzpw
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3QtMTIiLCJzdWIiOjE2LCJpYXQiOjE3MzM4ODYwNjcsImV4cCI6MTc2NDk5MDA2N30.NB8T5B8NDDgCYkGKbx5cHC3U02JeRQ2UlpW6AYJgRVQ
 Content-Type: application/json
 
 {
@@ -103,12 +102,12 @@ Content-Type: application/json
 
 ### 删除用户列表，并设置token
 Delete http://localhost:3000/user/2222
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3QiLCJzdWIiOjIzLCJpYXQiOjE3MzEyNDU5NzYsImV4cCI6MTc2MjM0OTk3Nn0.pnJx_lNs-jU-xgfztQ_5tD-2sfgNNo-ibQBykfiVzpw
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3QtMTIiLCJzdWIiOjE2LCJpYXQiOjE3MzM4ODYwNjcsImV4cCI6MTc2NDk5MDA2N30.NB8T5B8NDDgCYkGKbx5cHC3U02JeRQ2UlpW6AYJgRVQ
 Content-Type: application/json
 
 ### 查找用户列表，并设置token
 Get http://localhost:3000/user/3
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3QiLCJzdWIiOjIzLCJpYXQiOjE3MzEyNDU5NzYsImV4cCI6MTc2MjM0OTk3Nn0.pnJx_lNs-jU-xgfztQ_5tD-2sfgNNo-ibQBykfiVzpw
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3QtMTIiLCJzdWIiOjE2LCJpYXQiOjE3MzM4ODYwNjcsImV4cCI6MTc2NDk5MDA2N30.NB8T5B8NDDgCYkGKbx5cHC3U02JeRQ2UlpW6AYJgRVQ
 Content-Type: application/json
 
 
