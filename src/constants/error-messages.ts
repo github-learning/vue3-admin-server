@@ -15,6 +15,7 @@ export enum ErrorCodes {
   INVALID_USERNAME = 1002, // 用户名格式不合法
   INVALID_PASSWORD = 1003, // 密码不符合要求
   LOGIN_ERROR = 1004, //登陆失败
+  ROLE_IS_EXISTS = 1005, // 角色名重复
 
   // 4xx: 权限或资源问题
   PERMISSION_DENIED = 4001, // 权限不足
@@ -31,6 +32,7 @@ export const ErrorMessages = {
   [ErrorCodes.INVALID_USERNAME]: '用户名格式不合法',
   [ErrorCodes.INVALID_PASSWORD]: '密码不符合要求',
   [ErrorCodes.LOGIN_ERROR]: '用户名或密码错误',
+  [ErrorCodes.ROLE_IS_EXISTS]: '角色名重复',
   [ErrorCodes.PERMISSION_DENIED]: '权限不足',
   [ErrorCodes.RESOURCE_NOT_FOUND]: '资源未找到',
   [ErrorCodes.DATABASE_CONNECTION_FAILED]: '数据库连接失败',
