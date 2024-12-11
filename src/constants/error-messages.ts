@@ -27,15 +27,16 @@ export enum ErrorCodes {
 
 // 错误码对应消息
 export const ErrorMessages = {
-  [ErrorCodes.USER_ALREADY_EXISTS]: "用户已存在",
-  [ErrorCodes.INVALID_USERNAME]: "用户名格式不合法",
-  [ErrorCodes.INVALID_PASSWORD]: "密码不符合要求",
-  [ErrorCodes.PERMISSION_DENIED]: "权限不足",
-  [ErrorCodes.RESOURCE_NOT_FOUND]: "资源未找到",
-  [ErrorCodes.DATABASE_CONNECTION_FAILED]: "数据库连接失败",
-  [ErrorCodes.SERVER_UNKNOWN_ERROR]: "未知服务器错误",
+  [ErrorCodes.USER_ALREADY_EXISTS]: '用户已存在',
+  [ErrorCodes.INVALID_USERNAME]: '用户名格式不合法',
+  [ErrorCodes.INVALID_PASSWORD]: '密码不符合要求',
+  [ErrorCodes.LOGIN_ERROR]: '用户名或密码错误',
+  [ErrorCodes.PERMISSION_DENIED]: '权限不足',
+  [ErrorCodes.RESOURCE_NOT_FOUND]: '资源未找到',
+  [ErrorCodes.DATABASE_CONNECTION_FAILED]: '数据库连接失败',
+  [ErrorCodes.SERVER_UNKNOWN_ERROR]: '未知服务器错误',
 } as const;
 
 // 获取错误消息
 export const getErrorMessage = (code: ErrorCodes): string =>
-  ErrorMessages[code] || "未知错误";
+  ErrorMessages[code] || '未知错误,请返回正确的code';

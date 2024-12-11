@@ -1,4 +1,4 @@
-import { ErrorCodes, getErrorMessage } from "src/constants/error-messages";
+import { ErrorCodes, getErrorMessage } from 'src/constants/error-messages';
 
 export const fail = (code: ErrorCodes) => {
   return {
@@ -8,7 +8,7 @@ export const fail = (code: ErrorCodes) => {
 };
 
 // 如果需要成功的结构，也可以在这里定义
-export const success = (data: any, message: string = "操作成功") => {
+export const success = (data?: any, message?: string) => {
   return {
     code: 200,
     data,
