@@ -15,7 +15,7 @@ import { RoleModule } from './role/role.module';
       port: 3306,
       username: 'root',
       password: '123456',
-      database: 'sys',
+      database: 'admin',
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
       synchronize: true,
       autoLoadEntities: true,

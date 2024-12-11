@@ -5,6 +5,8 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Role } from './entities/role.entity';
 import { Repository } from 'typeorm';
 
+import { success, fail, ErrorCodes } from 'src/utils';
+
 @Injectable()
 export class RoleService {
   constructor(
@@ -12,13 +14,19 @@ export class RoleService {
   ) {}
 
   async create(createRoleDto: CreateRoleDto) {
+    // 检查是否存在相同的 name
+    const existingRole = await this.roleRepository.findOne({
+      where: { name: createRoleDto.name },
+    });
+
+    if (existingRole) {
+      // 抛出一个异常，表示角色名称已存在
+      return fail(ErrorCodes.ROLE_IS_EXISTS);
+    }
+
     const role = this.roleRepository.create(createRoleDto);
     const data = await this.roleRepository.save(role);
-
-    return {
-      data,
-      code: 200,
-    };
+    return success(data);
   }
 
   async findAll(page: number = 1, limit: number = 10) {
@@ -26,43 +34,34 @@ export class RoleService {
       skip: (page - 1) * limit,
       take: limit,
     });
-
-    return {
-      data: {
-        roles,
-        total,
-        page,
-        pageCount: Math.ceil(total / limit),
-      },
-
-      code: 200,
-    };
+    return success({
+      roles,
+      total,
+      page,
+      pageCount: Math.ceil(total / limit),
+    });
   }
 
   async update(id: number, updateRoleDto: UpdateRoleDto) {
-    console.log('updateRoleDto', updateRoleDto);
-    await this.roleRepository.update(id, updateRoleDto);
-    return {
-      data: {},
-      code: 200,
-    };
+    // 检查是否存在相同的 name，但排除当前记录
+    const existingRole = await this.roleRepository.findOne({
+      where: { name: updateRoleDto.name },
+    });
+
+    if (existingRole && existingRole.id !== id) {
+      // 抛出异常，提示用户名称已存在
+      if (existingRole) {
+        // 抛出一个异常，表示角色名称已存在
+        return fail(ErrorCodes.ROLE_IS_EXISTS);
+      }
+    }
+
+    this.roleRepository.update(id, updateRoleDto);
+    return success();
   }
 
   remove(id: number) {
-    const result = this.roleRepository.delete(id);
-    console.log('result', result);
-    // if (result.affected === 0) {
-    //   throw new NotFoundException(`Role with ID ${id} not found`);
-    // } else {
-    return {
-      code: 200,
-      data: {
-        // msg: '删除成功',
-      },
-    };
-  }
-
-  async findOne(id: number) {
-    return await this.roleRepository.findOne({ where: { id } });
+    this.roleRepository.delete(id);
+    return success();
   }
 }

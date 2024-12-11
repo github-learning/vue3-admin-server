@@ -11,10 +11,14 @@ import {
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { Public } from './public.decorator';
-import { success, fail } from 'src/utils';
+import { success, fail, ErrorCodes } from 'src/utils';
 import { UserService } from 'src/user/user.service';
 import { response } from 'express';
-
+/**
+ * function
+ * 登录
+ * 注册
+ */
 @Controller('auth')
 export class AuthController {
   constructor(
@@ -22,11 +26,6 @@ export class AuthController {
     private userService: UserService
   ) {}
 
-  @Public()
-  @Get()
-  findAll() {
-    return this.authService.findAll();
-  }
   @Public()
   @Post('/register')
   @HttpCode(200)
@@ -36,36 +35,30 @@ export class AuthController {
     const existingUser = await this.userService.finedByUsername(username);
 
     if (existingUser) {
-      return fail('该用户已存在')
+      return fail(ErrorCodes.USER_ALREADY_EXISTS);
     }
 
     const user = await this.userService.createUser(username, password);
-    console.log('user-1', user);
-    return success({ id: user.id, username: user.username },'注册成功, 请重新登陆')
+
+    return success(
+      { id: user.id, username: user.username },
+      '注册成功, 请重新登陆'
+    );
   }
 
-  // @Get(":id")
-  // findOne(@Param("id") id: string) {
-  //   return this.authService.findOne(+id);
-  // }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.authService.remove(+id);
-  }
   @Public()
   @Post('/login')
   @HttpCode(200)
   async login(@Body() params) {
-    console.log('login');
     try {
       const data = await this.authService.login(
         params.username,
         params.password
       );
+      console.log('data', data);
       return success(data, '登陆成功');
     } catch (err) {
-      return fail('登陆失败');
+      return fail(ErrorCodes.LOGIN_ERROR);
     }
   }
 }
