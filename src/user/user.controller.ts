@@ -16,10 +16,10 @@ import { User } from "./entities/user.entity";
 import { wrapperResponse } from "src/utils";
 //TODO
 /**
- * 状态处理
+ * 状态处理 ✅
  * 权限配置以及回显
  * 编辑重复问题检查
- * 权限列表 tree 配置
+ * 权限
  */
 @Controller("user")
 export class UserController {
@@ -78,7 +78,7 @@ export class UserController {
     @Query("pageSize") limit: number = 10, // 默认值为 10
     @Query("username") username?: string, // 可选的查询条件
     @Query("mobile") mobile?: string,
-    @Query("status") status?: string
+    @Query("status") status?: number
   ) {
     console.log("status", status);
     // 构建过滤条件对象

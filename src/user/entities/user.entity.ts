@@ -32,7 +32,7 @@ export class User {
   @Column({ type: "tinyint", default: 0, comment: "超级管理员 1是 0不是" })
   isSuper: boolean;
 
-  // @Column({ type: 'tinyint', default: 1, comment: '账户禁用状态 1正常 0禁用' })
+  // @Column({ type: "tinyint", default: 1, comment: "账户禁用状态 1正常 0禁用" })
   // status: boolean;
   @Column({ type: "tinyint", default: 1, comment: "账户禁用状态 1正常 0禁用" })
   status: number;

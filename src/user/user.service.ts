@@ -52,7 +52,7 @@ export class UserService {
     filters: {
       username?: string;
       mobile?: string;
-      status?: string;
+      status?: number;
     } = {}
   ) {
     const queryBuilder = this.usersRepository.createQueryBuilder("user");
@@ -73,7 +73,8 @@ export class UserService {
 
     // 状态条件
     // 状态条件：仅处理 0 和 1 的情况
-    if (filters.status === "0" || filters.status === "1") {
+
+    if (filters.status === 0 || filters.status === 1) {
       queryBuilder.andWhere("user.status = :status", {
         status: filters.status,
       });
@@ -94,9 +95,10 @@ export class UserService {
     });
   }
 
-  async update(id: number, updateUSer) {
-    console.log("updateRoleDto", updateUSer);
-    await this.usersRepository.update(id, updateUSer);
+  async update(id: number, updateUser) {
+    console.log("updateRoleDto", updateUser);
+    await this.usersRepository.update(id, updateUser);
+
     return success();
   }
 
@@ -111,6 +113,14 @@ export class UserService {
   async remove(id: number): Promise<object> {
     await this.usersRepository.delete(id);
     return success();
+  }
+  async createUser(username: string, password: string): Promise<User> {
+    const hashedPassword = md5(password).toUpperCase();
+    const user = this.usersRepository.create({
+      username,
+      password: hashedPassword,
+    });
+    return this.usersRepository.save(user);
   }
 
   async finedByUsername(username: string): Promise<User | undefined> {
