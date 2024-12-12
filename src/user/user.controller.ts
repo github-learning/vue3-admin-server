@@ -12,9 +12,15 @@ import {
 import { UserService } from "./user.service";
 
 import { User } from "./entities/user.entity";
-import { Public } from "src/auth/public.decorator";
-import { wrapperResponse } from "src/utils";
 
+import { wrapperResponse } from "src/utils";
+//TODO
+/**
+ * 状态处理
+ * 权限配置以及回显
+ * 编辑重复问题检查
+ * 权限列表 tree 配置
+ */
 @Controller("user")
 export class UserController {
   constructor(private readonly userService: UserService) {}
