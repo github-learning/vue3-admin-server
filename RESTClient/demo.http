@@ -111,3 +111,13 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc
 Content-Type: application/json
 
 
+
+# +++++++++++++++++++++++++++++++++++++
+
+# 菜单
+
+### 菜单列表
+Get http://localhost:3000/menu
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3QtMTIiLCJzdWIiOjE2LCJpYXQiOjE3MzM4ODYwNjcsImV4cCI6MTc2NDk5MDA2N30.NB8T5B8NDDgCYkGKbx5cHC3U02JeRQ2UlpW6AYJgRVQ
+Content-Type: application/json
+
