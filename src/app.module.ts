@@ -5,6 +5,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from './auth/auth.module';
 import { AppController } from './app.controller';
 import { RoleModule } from './role/role.module';
+import { MenuModule } from './menu/menu.module';
 //  模块注册中心
 @Module({
   //1. 定义数据库的连接
@@ -24,6 +25,7 @@ import { RoleModule } from './role/role.module';
     AuthModule,
     UserModule,
     RoleModule,
+    MenuModule,
   ],
   controllers: [AppController],
   providers: [AppService],
