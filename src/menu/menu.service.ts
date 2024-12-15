@@ -1,12 +1,12 @@
-import { Injectable } from "@nestjs/common";
-import { CreateMenuDto } from "./dto/create-menu.dto";
-import { UpdateMenuDto } from "./dto/update-menu.dto";
+import { Injectable } from '@nestjs/common';
+import { CreateMenuDto } from './dto/create-menu.dto';
+import { UpdateMenuDto } from './dto/update-menu.dto';
 
-import { InjectRepository } from "@nestjs/typeorm";
-import { Repository } from "typeorm";
-import { Menu } from "./entities/menu.entity";
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { Menu } from './entities/menu.entity';
 
-import { success, fail, ErrorCodes } from "src/utils";
+import { success, fail, ErrorCodes } from 'src/utils';
 
 @Injectable()
 export class MenuService {
@@ -16,19 +16,13 @@ export class MenuService {
   ) {}
 
   create(createMenuDto: CreateMenuDto) {
-    return "This action adds a new menu";
+    return 'This action adds a new menu';
   }
 
   async findAll() {
     const data = await this.menuRepository.find({
-      order: { sortId: "ASC" }, // 根据排序权重排序
+      order: { sortId: 'ASC' }, // 根据排序权重排序
     });
-
-    console.log(
-      "%c [ data ]-27",
-      "font-size:13px; background:pink; color:#bf2c9f;",
-      data
-    );
     return success(data);
   }
 
