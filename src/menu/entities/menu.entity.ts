@@ -4,7 +4,9 @@ import {
   PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
+  OneToMany,
 } from 'typeorm';
+import { RoleAccess } from 'src/role_access/entities/role_access.entity';
 
 @Entity('access')
 export class Menu {
@@ -36,7 +38,7 @@ export class Menu {
 
   // @Column({ type: 'int', nullable: true, comment: '父id' })
   // parentId: number | null; // 支持 NULL 值
-  // 明确指定字段名映射，数据库字段名与实体属性名有时不一致
+  // 明确指定字段名映射，数据库字段名与实体属性名有时不一致,需要制定name属性
   @Column({ type: 'int', nullable: true, comment: '父id', name: 'parent_id' })
   parentId: number | null;
 
@@ -59,4 +61,7 @@ export class Menu {
     comment: '更新时间',
   })
   updatedAt: Date;
+
+  @OneToMany(() => RoleAccess, (roleAccess) => roleAccess.access)
+  roleAccesses: RoleAccess[];
 }

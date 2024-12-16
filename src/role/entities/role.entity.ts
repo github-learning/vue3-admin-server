@@ -4,7 +4,9 @@ import {
   Column,
   CreateDateColumn,
   UpdateDateColumn,
+  OneToMany,
 } from 'typeorm';
+import { RoleAccess } from 'src/role_access/entities/role_access.entity';
 
 @Entity('role')
 export class Role {
@@ -30,4 +32,7 @@ export class Role {
 
   @UpdateDateColumn({ type: 'datetime', comment: '更新时间' })
   updatedAt: Date;
+
+  @OneToMany(() => RoleAccess, (roleAccess) => roleAccess.role)
+  roleAccesses: RoleAccess[];
 }
