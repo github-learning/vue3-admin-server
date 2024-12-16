@@ -1,9 +1,10 @@
 import { PartialType } from "@nestjs/swagger";
 import { CreateMenuDto } from "./create-menu.dto";
-import { IsInt, IsOptional } from "class-validator";
+import { IsInt, IsOptional, Min } from "class-validator";
 
 export class UpdateMenuDto extends PartialType(CreateMenuDto) {
-  @IsOptional() // 可选字段
-  @IsInt({ message: "排序字段必须是整数" })
-  sortId: number = 0; // 提供默认值
+  @IsOptional()
+  @IsInt()
+  @Min(1, { message: "ID 必须是大于 0 的整数" })
+  id: number;
 }

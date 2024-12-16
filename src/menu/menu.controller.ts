@@ -35,6 +35,10 @@ export class MenuController {
   update(@Param("id") id: string, @Body() updateMenuDto: UpdateMenuDto) {
     return this.menuService.update(+id, updateMenuDto);
   }
+  @Patch()
+  async updateBulk(@Body("access") data: UpdateMenuDto[]) {
+    return this.menuService.updateBulk(data);
+  }
 
   @Delete(":id")
   remove(@Param("id") id: string) {

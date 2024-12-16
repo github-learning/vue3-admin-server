@@ -58,9 +58,23 @@ export class MenuService {
     return success();
   }
 
-  // remove(id: number) {
-  //   return `This action removes a #${id} menu`;
-  // }
+  async updateBulk(data: UpdateMenuDto[]): Promise<any> {
+    const updatePromises = data.map((menu) => {
+      const { id, ...updateFields } = menu;
+
+      if (!id) {
+        throw new Error("每条记录必须包含 ID");
+      }
+
+      // 更新指定 ID 的记录
+      return this.menuRepository.update(id, updateFields);
+    });
+
+    // 等待所有更新操作完成
+    await Promise.all(updatePromises);
+
+    return success();
+  }
   async remove(id: number) {
     await this.menuRepository.delete(id);
     return success();
