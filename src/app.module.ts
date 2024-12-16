@@ -6,6 +6,7 @@ import { AuthModule } from './auth/auth.module';
 import { AppController } from './app.controller';
 import { RoleModule } from './role/role.module';
 import { MenuModule } from './menu/menu.module';
+import { RoleAccessModule } from './role_access/role_access.module';
 //  模块注册中心
 @Module({
   //1. 定义数据库的连接
@@ -26,6 +27,7 @@ import { MenuModule } from './menu/menu.module';
     UserModule,
     RoleModule,
     MenuModule,
+    RoleAccessModule,
   ],
   controllers: [AppController],
   providers: [AppService],
