@@ -80,4 +80,30 @@ export class RoleAccessService {
     await this.roleAccessRepository.save(roleAccesses);
     return success();
   }
+
+  async getRoleAccessByRoles(roleIds: number[]): Promise<any> {
+    // 查询角色及其关联的权限
+    const roles = await this.roleAccessRepository.find({
+      where: { roleId: In(roleIds) }, // 使用 In 运算符处理数组查询
+      relations: ['access'], // 预加载权限关系
+    });
+
+    const ids = roles.map((item) => item.accessId);
+    console.log('ids', ids);
+    const accesses = await this.menuRepository.find({
+      where: {
+        id: In(ids), // 使用 In 操作符查询多个 ID
+      },
+    });
+
+    console.log(
+      '%c [  ]-103',
+      'font-size:13px; background:pink; color:#bf2c9f;',
+      accesses
+    );
+
+    return success(accesses);
+    // 筛选与传入角色匹配的权限
+    // return mockAccessData.filter((item) => roles.includes(item.roleId));
+  }
 }
