@@ -10,6 +10,7 @@ import {
 import { RoleAccessService } from './role_access.service';
 import { AllocRoleAccessDto } from './dto/create-role_access.dto';
 import { UpdateRoleAccessDto } from './dto/update-role_access.dto';
+import { GetRoleAccessDto } from './dto/get-role-access.dto';
 
 @Controller('role_access')
 export class RoleAccessController {
@@ -30,5 +31,10 @@ export class RoleAccessController {
   @Get(':id')
   async findAll(@Param('id') id: number) {
     return await this.roleAccessService.findAll(id);
+  }
+
+  @Post('role/access')
+  async getRoleAccessByRoles(@Body() dto: GetRoleAccessDto) {
+    return this.roleAccessService.getRoleAccessByRoles(dto.roles);
   }
 }
