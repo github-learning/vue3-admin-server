@@ -4,9 +4,14 @@ import { SwaggerModule, DocumentBuilder } from "@nestjs/swagger";
 import { ResponseInterceptor } from "./interceptors/response.interceptor";
 import { APP_INTERCEPTOR } from "@nestjs/core";
 import { HttpExceptionFilter } from "./filters/http-exception.filter";
-import { ValidationPipe } from "@nestjs/common";
+import { Logger, ValidationPipe } from "@nestjs/common";
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule, { cors: true });
+  // const logger = new Logger();
+
+  const app = await NestFactory.create(AppModule, {
+    cors: true,
+    // logger: false, // 关闭程序日志
+  });
   // 设置全局路由前缀
   // app.setGlobalPrefix('/api');
   // 设置swapper 相关文档
