@@ -5,6 +5,9 @@ import { User } from "./entities/user.entity";
 import * as crypto from "crypto";
 import * as md5 from "md5";
 import { ErrorCodes, success } from "src/utils";
+import { ConfigService } from "@nestjs/config";
+import { ConfigEnum } from "src/enmu/enum.config";
+
 /**
  * @typeorm 用于建立连接
  * typeorm 用于CRUD
@@ -13,7 +16,8 @@ import { ErrorCodes, success } from "src/utils";
 @Injectable()
 export class UserService {
   constructor(
-    @InjectRepository(User) private readonly usersRepository: Repository<User>
+    @InjectRepository(User) private readonly usersRepository: Repository<User>,
+    private ConfigService: ConfigService
   ) {}
 
   /**
@@ -87,6 +91,19 @@ export class UserService {
 
     // 查询数据和总数
     const [list, total] = await queryBuilder.getManyAndCount();
+
+    // const db = this.ConfigService.get("DB");
+    // const db_host = this.ConfigService.get("DB_HOST");
+
+    const db = this.ConfigService.get(ConfigEnum.DB);
+    const db_host = this.ConfigService.get(ConfigEnum.DB_HOST);
+    console.log(
+      "%c [  ]-91",
+      "font-size:13px; background:pink; color:#bf2c9f;",
+      db,
+      db_host
+    );
+
     return success({
       list,
       total,
