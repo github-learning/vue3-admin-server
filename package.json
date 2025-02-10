@@ -36,6 +36,7 @@
     "md5": "^2.3.0",
     "mysql": "^2.18.1",
     "mysql2": "^3.11.5",
+    "nestjs-pino": "^4.3.0",
     "passport": "^0.7.0",
     "passport-jwt": "^4.0.1",
     "reflect-metadata": "^0.2.0",

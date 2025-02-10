@@ -14,6 +14,7 @@ import { UserService } from "./user.service";
 import { User } from "./entities/user.entity";
 
 import { wrapperResponse } from "src/utils";
+import { Logger } from "nestjs-pino/Logger";
 //TODO
 /**
  * 状态处理 ✅
@@ -23,7 +24,16 @@ import { wrapperResponse } from "src/utils";
  */
 @Controller("user")
 export class UserController {
-  constructor(private readonly userService: UserService) {}
+  // private logger = new Logger(UserController.name);
+  // constructor(private readonly userService: UserService) {
+  //   this.logger.log("UserController init");
+  // }
+  constructor(
+    private readonly userService: UserService,
+    private logger: Logger
+  ) {
+    this.logger.log("UserController init");
+  }
   /**
    * 新增
    * @param body
@@ -64,7 +74,7 @@ export class UserController {
     @Query("mobile") mobile?: string,
     @Query("status") status?: string
   ) {
-    console.log("status", status);
+    this.logger.log("getUserList 请求成功");
     // 构建过滤条件对象
     const filters = {
       username,
