@@ -1,4 +1,4 @@
-import { Module } from "@nestjs/common";
+import { Global, Module } from "@nestjs/common";
 import { AppService } from "./app.service";
 import { UserModule } from "./user/user.module";
 import { TypeOrmModule } from "@nestjs/typeorm";
@@ -8,9 +8,10 @@ import { RoleModule } from "./role/role.module";
 import { MenuModule } from "./menu/menu.module";
 import { RoleAccessModule } from "./role_access/role_access.module";
 import { ConfigModule } from "@nestjs/config";
-import { LoggerModule } from "nestjs-pino";
+import { Logger, LoggerModule } from "nestjs-pino";
 import { join } from "path";
 
+@Global() // 把app module 进行全局注册
 //  模块注册中心
 @Module({
   //1. 定义数据库的连接
@@ -36,6 +37,7 @@ import { join } from "path";
     RoleModule,
     MenuModule,
     RoleAccessModule,
+
     LoggerModule.forRoot({
       // 开发环境log 形式，线上文件形式，方便问题追踪
       pinoHttp: {
@@ -60,7 +62,8 @@ import { join } from "path";
     }),
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, Logger],
+  exports: [Logger],
 })
 /**
  * 只要被provider 修饰， 被 Injectable 所修饰

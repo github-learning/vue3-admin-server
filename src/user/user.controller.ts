@@ -30,9 +30,9 @@ export class UserController {
   // }
   constructor(
     private readonly userService: UserService,
-    private logger: Logger
+    private readonly logger: Logger
   ) {
-    this.logger.log("UserController init");
+    this.logger.error("UserController init--");
   }
   /**
    * 新增
@@ -74,7 +74,7 @@ export class UserController {
     @Query("mobile") mobile?: string,
     @Query("status") status?: string
   ) {
-    this.logger.log("getUserList 请求成功");
+    this.logger.error("getUserList 请求成功)))");
     // 构建过滤条件对象
     const filters = {
       username,
