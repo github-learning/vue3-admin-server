@@ -5,13 +5,17 @@ import { ResponseInterceptor } from "./interceptors/response.interceptor";
 import { APP_INTERCEPTOR } from "@nestjs/core";
 import { HttpExceptionFilter } from "./filters/http-exception.filter";
 import { Logger, ValidationPipe } from "@nestjs/common";
+import { ConfigService } from "@nestjs/config";
 async function bootstrap() {
-  // const logger = new Logger();
+  const logger = new Logger();
 
   const app = await NestFactory.create(AppModule, {
     cors: true,
     // logger: false, // 关闭程序日志
   });
+
+  // 获取 ConfigService 实例
+  const configService = app.get(ConfigService);
   // 设置全局路由前缀
   // app.setGlobalPrefix('/api');
   // 设置swapper 相关文档
@@ -38,11 +42,11 @@ async function bootstrap() {
       whitelist: true, // 自动剔除 DTO 中未定义的字段
     })
   );
+  // 使用 ConfigService 获取配置项
+  const port = configService.get<number>("PORT"); // 通过环境变量读取端口
 
-  await app.listen(3000);
-
-  console.log("http://localhost:3000/");
-  // await app.listen(3000);
+  await app.listen(port);
+  logger.log(`App 运行在 http://localhost:${port}`);
 }
 bootstrap();
 /**
