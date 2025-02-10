@@ -44,9 +44,10 @@ async function bootstrap() {
   );
   // 使用 ConfigService 获取配置项
   const port = configService.get<number>("PORT"); // 通过环境变量读取端口
+  const env = configService.get<number>("NODE_ENV"); // 通过环境变量读取环境
 
   await app.listen(port);
-  logger.log(`App 运行在 http://localhost:${port}`);
+  logger.log(`App 运行在 http://localhost:${port} ${env}`);
 }
 bootstrap();
 /**

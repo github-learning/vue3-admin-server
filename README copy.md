@@ -20,3 +20,8 @@ plainToInstance
 4. 二级路由
 5. icon
 6. 顶部工具栏
+
+# npm-check
+
+- npm install npm-check -g
+- npm-check -u
