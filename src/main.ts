@@ -6,12 +6,29 @@ import { APP_INTERCEPTOR } from "@nestjs/core";
 import { HttpExceptionFilter } from "./filters/http-exception.filter";
 import { Logger, ValidationPipe } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
+import { createLogger } from "winston";
+import { utilities, WinstonModule } from "nest-winston";
+import * as winston from "winston";
 async function bootstrap() {
-  const logger = new Logger();
+  // const logger = new Logger();
+  // createLogger of Winston
+  const instance = createLogger({
+    transports: [
+      new winston.transports.Console({
+        format: winston.format.combine(
+          winston.format.timestamp(),
+          utilities.format.nestLike()
+        ),
+      }),
+    ],
+  });
 
   const app = await NestFactory.create(AppModule, {
     cors: true,
     // logger: false, // 关闭程序日志
+    logger: WinstonModule.createLogger({
+      instance,
+    }),
   });
 
   // 获取 ConfigService 实例
@@ -47,7 +64,7 @@ async function bootstrap() {
   const env = configService.get<number>("NODE_ENV"); // 通过环境变量读取环境
 
   await app.listen(port);
-  logger.log(`App 运行在 http://localhost:${port} ${env}`);
+  Logger.log(`App 运行在 http://localhost:${port} ${env}`);
 }
 bootstrap();
 /**
