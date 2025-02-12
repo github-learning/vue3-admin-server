@@ -1,12 +1,12 @@
-import { Injectable, InternalServerErrorException } from "@nestjs/common";
-import { InjectRepository } from "@nestjs/typeorm";
-import { Repository } from "typeorm";
-import { User } from "./entities/user.entity";
-import * as crypto from "crypto";
-import * as md5 from "md5";
-import { ErrorCodes, success } from "src/utils";
-import { ConfigService } from "@nestjs/config";
-import { ConfigEnum } from "src/enmu/enum.config";
+import { Injectable, InternalServerErrorException } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { User } from './entities/user.entity';
+import * as crypto from 'crypto';
+import * as md5 from 'md5';
+import { ErrorCodes, success } from 'src/utils';
+import { ConfigService } from '@nestjs/config';
+import { ConfigEnum } from 'src/enmu/enum.config';
 
 /**
  * @typeorm 用于建立连接
@@ -26,7 +26,9 @@ export class UserService {
    * @returns
    */
 
+  // 创建用户
   async create(body: User) {
+    // 创建用户
     const user = this.usersRepository.create(body);
     // 检查是否已有用户使用相同的名称
     const existingUser = await this.usersRepository.findOne({
@@ -38,6 +40,7 @@ export class UserService {
       return fail(ErrorCodes.ROLE_IS_EXISTS);
     }
 
+    // 保存用户
     await this.usersRepository.save(user);
 
     return success();
@@ -59,18 +62,18 @@ export class UserService {
       status?: string;
     } = {}
   ) {
-    const queryBuilder = this.usersRepository.createQueryBuilder("user");
+    const queryBuilder = this.usersRepository.createQueryBuilder('user');
 
-    console.log("filters", filters);
+    console.log('filters', filters);
     // 动态添加查询条件
     if (filters.username) {
-      queryBuilder.andWhere("user.username LIKE :username", {
+      queryBuilder.andWhere('user.username LIKE :username', {
         username: `%${filters.username}%`,
       });
     }
 
     if (filters.mobile) {
-      queryBuilder.andWhere("user.mobile LIKE :mobile", {
+      queryBuilder.andWhere('user.mobile LIKE :mobile', {
         mobile: `%${filters.mobile}%`,
       });
     }
@@ -78,8 +81,8 @@ export class UserService {
     // 状态条件
     // 状态条件：仅处理 0 和 1 的情况
 
-    if (filters.status === "0" || filters.status === "1") {
-      queryBuilder.andWhere("user.status = :status", {
+    if (filters.status === '0' || filters.status === '1') {
+      queryBuilder.andWhere('user.status = :status', {
         status: filters.status,
       });
     }
@@ -98,8 +101,8 @@ export class UserService {
     const db = this.ConfigService.get(ConfigEnum.DB);
     const db_host = this.ConfigService.get(ConfigEnum.DB_HOST);
     console.log(
-      "%c [  ]-91",
-      "font-size:13px; background:pink; color:#bf2c9f;",
+      '%c [  ]-91',
+      'font-size:13px; background:pink; color:#bf2c9f;',
       db,
       db_host
     );
@@ -114,7 +117,7 @@ export class UserService {
   }
 
   async update(id: number, updateUser) {
-    console.log("updateRoleDto", updateUser);
+    console.log('updateRoleDto', updateUser);
     await this.usersRepository.update(id, updateUser);
 
     return success();
