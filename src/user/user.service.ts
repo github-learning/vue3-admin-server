@@ -16,7 +16,9 @@ import { ConfigEnum } from 'src/enmu/enum.config';
 @Injectable()
 export class UserService {
   constructor(
+    // Inject the User repository into the constructor
     @InjectRepository(User) private readonly usersRepository: Repository<User>,
+    // Inject the ConfigService into the constructor
     private ConfigService: ConfigService
   ) {}
 
