@@ -1,0 +1,340 @@
+openapi: 3.0.0
+paths:
+  /:
+    get:
+      operationId: AppController_getHello
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+        - App
+  /auth/info:
+    post:
+      operationId: AuthController_getUserInfo
+      parameters: []
+      responses:
+        '201':
+          description: ''
+      tags: &ref_0
+        - Auth
+  /auth/register:
+    post:
+      operationId: AuthController_register
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags: *ref_0
+  /auth/login:
+    post:
+      operationId: AuthController_login
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags: *ref_0
+  /user:
+    post:
+      operationId: UserController_create
+      parameters: []
+      responses:
+        '201':
+          description: ''
+      tags: &ref_1
+        - User
+    get:
+      operationId: UserController_findAll
+      parameters:
+        - name: pageNum
+          required: true
+          in: query
+          schema:
+            type: number
+        - name: pageSize
+          required: true
+          in: query
+          schema:
+            type: number
+        - name: username
+          required: true
+          in: query
+          schema:
+            type: string
+        - name: mobile
+          required: true
+          in: query
+          schema:
+            type: string
+        - name: status
+          required: true
+          in: query
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+      tags: *ref_1
+  /user/{id}:
+    delete:
+      operationId: UserController_remove
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+      tags: *ref_1
+    put:
+      operationId: UserController_update
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+      tags: *ref_1
+  /user/getUserById:
+    get:
+      operationId: UserController_getUserById
+      parameters:
+        - name: id
+          required: true
+          in: query
+          schema:
+            type: number
+      responses:
+        '200':
+          description: ''
+      tags: *ref_1
+  /role:
+    get:
+      operationId: RoleController_findAll
+      parameters:
+        - name: pageNum
+          required: true
+          in: query
+          schema:
+            type: number
+        - name: pageSize
+          required: true
+          in: query
+          schema:
+            type: number
+      responses:
+        '200':
+          description: ''
+      tags: &ref_2
+        - Role
+    post:
+      operationId: RoleController_create
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateRoleDto'
+      responses:
+        '201':
+          description: ''
+      tags: *ref_2
+  /role/{id}:
+    patch:
+      operationId: RoleController_update
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateRoleDto'
+      responses:
+        '200':
+          description: ''
+      tags: *ref_2
+    delete:
+      operationId: RoleController_remove
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+      tags: *ref_2
+  /menu:
+    post:
+      operationId: MenuController_create
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateMenuDto'
+      responses:
+        '201':
+          description: ''
+      tags: &ref_3
+        - Menu
+    get:
+      operationId: MenuController_findAll
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags: *ref_3
+    patch:
+      operationId: MenuController_updateBulk
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags: *ref_3
+  /menu/{id}:
+    get:
+      operationId: MenuController_findOne
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+      tags: *ref_3
+    put:
+      operationId: MenuController_update
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateMenuDto'
+      responses:
+        '200':
+          description: ''
+      tags: *ref_3
+    delete:
+      operationId: MenuController_remove
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+      tags: *ref_3
+  /role_access/{id}:
+    post:
+      operationId: RoleAccessController_allocateRoleAccess
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: number
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AllocRoleAccessDto'
+      responses:
+        '201':
+          description: ''
+      tags: &ref_4
+        - RoleAccess
+    get:
+      operationId: RoleAccessController_findAll
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: number
+      responses:
+        '200':
+          description: ''
+      tags: *ref_4
+  /role_access/role/access:
+    post:
+      operationId: RoleAccessController_getRoleAccessByRoles
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GetRoleAccessDto'
+      responses:
+        '201':
+          description: ''
+      tags: *ref_4
+info:
+  title: My API
+  description: The API description
+  version: '1.0'
+  contact: {}
+tags:
+  - name: cats
+    description: ''
+servers: []
+components:
+  securitySchemes:
+    bearer:
+      scheme: bearer
+      bearerFormat: JWT
+      type: http
+  schemas:
+    CreateRoleDto:
+      type: object
+      properties: {}
+    UpdateRoleDto:
+      type: object
+      properties: {}
+    CreateMenuDto:
+      type: object
+      properties:
+        title:
+          type: string
+          description: 菜单名称不能为空
+          example: 用户菜单
+      required:
+        - title
+    UpdateMenuDto:
+      type: object
+      properties:
+        title:
+          type: string
+          description: 菜单名称不能为空
+          example: 用户菜单
+    AllocRoleAccessDto:
+      type: object
+      properties: {}
+    GetRoleAccessDto:
+      type: object
+      properties: {}
