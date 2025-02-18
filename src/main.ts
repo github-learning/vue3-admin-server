@@ -9,6 +9,8 @@ import { ConfigService } from "@nestjs/config";
 import { createLogger } from "winston";
 import { utilities, WinstonModule } from "nest-winston";
 import * as winston from "winston";
+import * as fs from "fs";
+import * as yaml from "js-yaml";
 async function bootstrap() {
   // const logger = new Logger();
   // createLogger of Winston
@@ -47,6 +49,10 @@ async function bootstrap() {
 
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup("doc", app, document); // 'api' 是 Swagger UI 的路由路径
+
+  // 生成 JSON 文件（可选）
+  fs.writeFileSync("./swagger.json", JSON.stringify(document, null, 2));
+
   // 全局注册响应拦截器
   // app.useGlobalInterceptors(new ResponseInterceptor());
   // 全局注册异常过滤器

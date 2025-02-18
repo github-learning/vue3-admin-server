@@ -1,6 +1,8 @@
 import { IsInt, IsNotEmpty, IsOptional, IsString } from "class-validator";
+import { ApiProperty } from "@nestjs/swagger";
 
 export class CreateMenuDto {
+  @ApiProperty({ description: "菜单名称不能为空", example: "用户菜单" })
   @IsNotEmpty({ message: "菜单名称不能为空" })
   @IsString({ message: "菜单名称必须是字符串" })
   title: string;
